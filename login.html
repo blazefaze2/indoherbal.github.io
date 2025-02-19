@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - INDO HERBAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ece9e6, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .login-btn, .google-btn {
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .google-btn {
+            margin-top: 10px;
+            background-color: white;
+            color: #444;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-btn i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .google-btn:hover {
+            background-color: #f1f1f1;
+        }
+
+        .register-link {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .loading {
+            display: none;
+            font-size: 14px;
+            color: #007bff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login ke INDO HERBAL</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Masukkan email Anda" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" placeholder="Masukkan kata sandi Anda" required>
+            </div>
+            <button type="submit" class="login-btn">Masuk</button>
+            <p class="error-message" id="errorMessage">Email atau password salah!</p>
+            <p class="loading" id="loadingMessage">Sedang masuk...</p>
+        </form>
+        <button class="google-btn" id="googleLogin">
+            <i class="fab fa-google"></i> Masuk dengan Google
+        </button>
+        <a href="register.html" class="register-link">Belum punya akun? Daftar</a>
+    </div>
+
+    <script>
+        // KONFIGURASI FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyDScmm6lE6xglU1c0zBkwO4sit1r00nWo4",
+            authDomain: "indoherbalauth.firebaseapp.com",
+            projectId: "indoherbalauth",
+            storageBucket: "indoherbalauth.firebasestorage.app",
+            messagingSenderId: "1030472423325",
+            appId: "1:1030472423325:web:0173f908fc7420132b0174"
+        };
+
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // LOGIN DENGAN EMAIL & PASSWORD
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loadingMessage = document.getElementById('loadingMessage');
+
+            // Matikan tombol login sementara
+            const loginBtn = document.querySelector(".login-btn");
+            loginBtn.disabled = true;
+            loginBtn.style.opacity = "0.6";
+            loadingMessage.style.display = "block";
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    alert("Login berhasil! Selamat datang di INDO HERBAL.");
+                    window.location.href = "index.html";  // Redirect ke halaman utama
+                })
+                .catch((error) => {
+                    errorMessage.textContent = error.message; // Tampilkan error asli
+                    errorMessage.style.display = "block";
+                })
+                .finally(() => {
+                    // Aktifkan kembali tombol login
+                    loginBtn.disabled = false;
+                    loginBtn.style.opacity = "1";
+                    loadingMessage.style.display = "none";
+                });
+        });
+
+        // LOGIN DENGAN GOOGLE
+        document.getElementById('googleLogin').addEventListener('click', function() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const loadingMessage = document.getElementById('loadingMessage');
+
+            // Matikan tombol sementara
+            const googleBtn = document.querySelector(".google-btn");
+            googleBtn.disabled = true;
+            googleBtn.style.opacity = "0.6";
+            loadingMessage.textContent = "Menghubungkan ke Google...";
+            loadingMessage.style.display = "block";
+
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    alert("Login dengan Google berhasil!");
+                    window.location.href = "index.html";  // Redirect ke halaman utama
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                })
+                .finally(() => {
+                    // Aktifkan kembali tombol login
+                    googleBtn.disabled = false;
+                    googleBtn.style.opacity = "1";
+                    loadingMessage.style.display = "none";
+                });
+        });
+    </script>
+
+</body>
+</html>

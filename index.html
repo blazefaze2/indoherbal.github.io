@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDOHERBAL</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ece9e6, #ffffff);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background: #000; /* Navbar hitam */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Bayangan agar lebih elegan */
+        }
+
+        h1 {
+            color: white; /* Judul berwarna putih untuk kontras */
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        /*tombol login dan register style*/
+        .auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-buttons a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.login-btn {
+    background-color: #007bff;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+.register-btn {
+    background-color: #28a745;
+}
+
+.register-btn:hover {
+    background-color: #1e7e34;
+}
+
+
+
+        nav a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff; /* Teks navbar putih */
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: #00bcd4; /* Warna biru terang saat hover */
+        }
+
+        nav a i {
+            margin-right: 8px;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover i {
+            transform: translateX(5px); /* Efek ikon bergerak */
+        }
+
+        main {
+            text-align: center;
+            margin-top: 60px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .shop-now {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .shop-now:hover {
+            background-color: #0056b3;
+        }
+
+        .testimonial-section {
+            margin-top: 50px;
+            padding: 40px;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        .testimonial {
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+            color: #555;
+        }
+
+        .testimonial strong {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        /* Menambahkan styling pada testimonial pelanggan */
+        .testimonials-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .testimonial-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card p {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card strong {
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Grid produk */
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+            gap: 20px; /* Jarak antar produk */
+            justify-items: center; /* Menyusun produk di tengah */
+            max-width: 1200px; /* Maksimal lebar grid agar responsif */
+            width: 100%;
+            margin: 0 auto; /* Menjaga grid terpusat */
+        }
+
+        /* Modifikasi .product-card untuk tampilan yang lebih rapi */
+        .product-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-card h4 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .product-card button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <header>
+            <h1>INDO HERBAL</h1>
+            <nav>
+                <a href="#"><i class="fas fa-home"></i> Beranda</a>
+                <a href="#"><i class="fas fa-th-large"></i> Kategori</a>
+                <a href="#"><i class="fas fa-comment-alt"></i> Testimoni</a>
+                <a href="#"><i class="fas fa-cogs"></i> Semua Produk Kami</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> Tentang Kami</a>
+                <a href="#"><i class="fas fa-phone-alt"></i> Hubungi Kami</a>
+
+                <div class="auth-buttons">
+    <a href="login.html" class="login-btn">Login</a>
+    <a href="register.html" class="register-btn">Register</a>
+    </div>
+    
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h2>SELAMAT DATANG</h2>
+                <p>"Produk Herbal Berkualitas untuk Hidup Lebih Sehat."</p>
+                <button class="shop-now">Shop Now</button>
+            </section>
+
+            <!-- Produk Unggulan Kami -->
+            <section class="featured-products">
+                <h3>Produk Unggulan Kami</h3>
+                <p>Temukan produk herbal pilihan yang akan meningkatkan kesehatan Anda.</p>
+                <div class="product-list">
+                    <div class="product-card">
+                        <img src="herbal1.jpg" alt="Herbal Energizer">
+                        <h4>Herbal Energizer</h4>
+                        <p>Boosts energy and focus naturally</p>
+                        <button onclick="window.location.href='product-page-1.html'">Lihat Produk</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="herbal2.jpg" alt="Relaxing Herbal Tea">
+                        <h4>Relaxing Herbal Tea</h4>
+                        <p>Promotes relaxation and better sleep</p>
+                        <button onclick="window.location.href='product-page-2.html'">Lihat Produk</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="herbal3.jpg" alt="Detox Herbal Drink">
+                        <h4>Detox Herbal Drink</h4>
+                        <p>Helps cleanse your body naturally</p>
+                        <button onclick="window.location.href='product-page-3.html'">Lihat Produk</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonial Pelanggan -->
+            <section class="testimonial-section">
+                <h2>What Our Customers Say</h2>
+                <div class="testimonials-container">
+                    <div class="testimonial-card">
+                        <img src="customer1.jpg" alt="Customer 1">
+                        <p>"Owner nih boss senggol dong"</p>
+                        <strong>- Ali santos.</strong>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="customer2.jpg" alt="Customer 2">
+                        <p>"Manjurr"</p>
+                        <strong>- Iwan setiawan.</strong>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="customer3.jpg" alt="Customer 3">
+                        <p>"Bagus"</p>
+                        <strong>- Setiawan adi.</strong>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Tambahkan library FontAwesome untuk ikon -->
+    <script src="https://kit.fontawesome.com/a076d
